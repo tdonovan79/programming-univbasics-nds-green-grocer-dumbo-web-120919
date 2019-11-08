@@ -47,7 +47,7 @@ def apply_coupons(cart, coupons)
     while cart_index < cart.length do
       #if it is in cart and hits item limit, apply coupon
       if coupons[coup_index][:item] == cart[cart_index][:item] && coupons[coup_index][:num] <= cart[cart_index][:count]
-        cart[cart_index][:count] -= 2
+        cart[cart_index][:count] -= coupons[coup_index][:num]
         new_item = {
           :item => "#{cart[cart_index][:item]} W/COUPON",
           :price => coupons[coup_index][:cost] / coupons[coup_index][:num],
@@ -68,7 +68,7 @@ def apply_clearance(cart)
   cart_index = 0
   while cart_index < cart.length do
     if cart[cart_index][:clearance]
-      cart[cart_index][:price] *= 0.8
+      cart[cart_index][:price] = (0.8 * cart[cart_index][:price]
       cart[cart_index][:price].round(2)
     end
     cart_index += 1
